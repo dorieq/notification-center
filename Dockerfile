@@ -1,28 +1,20 @@
-# Build stage
-FROM golang:1.24-alpine AS builder
+FROM golang:1.24-alpine
 
 WORKDIR /app
 
-# Install git (needed to download dependencies)
-RUN apk add --no-cache git
+# Copy wait script
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
 
-# Copy go.mod and go.sum and download deps
+# Copy go mod files
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy source code
+# Copy source
 COPY . .
 
-# Build the binary
+# Build
 RUN go build -o notify-service ./cmd/notify
 
-# Final stage
-FROM alpine:latest
-
-WORKDIR /app
-
-# Copy binary from builder
-COPY --from=builder /app/notify-service .
-
-# Optional: add CA certs if needed
-RUN apk add --no-cache ca-certificates
+# Start with dependency check
+CMD ["/bin/sh", "-c", "/wait-for-it.sh kafka:9092 -- ./notify-service"]

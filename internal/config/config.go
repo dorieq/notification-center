@@ -12,7 +12,6 @@ type Config struct {
 	KafkaTopic  string
 	KafkaGroup  string
 	WSOrigin    string
-	JWTSecret   string
 	LogLevel    string
 }
 

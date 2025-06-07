@@ -17,4 +17,4 @@ COPY . .
 RUN go build -o notify-service ./cmd/notify
 
 # Start with dependency check
-CMD ["/bin/sh", "-c", "/wait-for-it.sh kafka:9092 -- ./notify-service"]
+CMD ["/bin/sh", "-c", "/wait-for-it.sh kafka:29092 -- ./notify-service"]

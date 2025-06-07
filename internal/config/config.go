@@ -20,7 +20,7 @@ func LoadConfig() *Config {
 
 	return &Config{
 		Port:        getEnv("PORT", "8080"),
-		KafkaBroker: getEnv("KAFKA_BROKER", "localhost:9092"),
+		KafkaBroker: getEnv("KAFKA_BROKER", "kafka:29092"),
 		KafkaTopic:  getEnv("KAFKA_TOPIC", "notifications"),
 		KafkaGroup:  getEnv("KAFKA_GROUP_ID", "notify-group"),
 		WSOrigin:    getEnv("WS_ORIGIN", "*"),

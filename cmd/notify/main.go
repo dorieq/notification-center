@@ -21,6 +21,7 @@ func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+	log.Println("Connecting to Kafka broker at:", cfg.KafkaBroker)
 
 	go kafka.StartKafkaConsumer(ctx, cfg.KafkaTopic, cfg.KafkaBroker)
 
